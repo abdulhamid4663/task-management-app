@@ -3,22 +3,22 @@ import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
     const navLinks = <>
-        <NavLink className="hover:text-violet-600 border-violet-600">
+        <NavLink className="hover:text-[#B33E62]">
             Home
         </NavLink>
-        <NavLink className="hover:text-violet-600">
+        <NavLink className="hover:text-[#B33E62]">
             Features
         </NavLink>
-        <NavLink className="hover:text-violet-600">
+        <NavLink className="hover:text-[#B33E62]">
             About us
         </NavLink>
-        <NavLink className="hover:text-violet-600">
+        <NavLink className="hover:text-[#B33E62]">
             Contact us
         </NavLink>
     </>
 
     return (
-        <div className="navbar bg-base-100 max-w-screen-2xl mx-auto py-6 px-4">
+        <div className="navbar justify-between bg-base-100 max-w-screen-2xl mx-auto py-6 px-4">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -28,15 +28,15 @@ const Navbar = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <Link to="/" className="text-violet-600 text-3xl font-semibold">ToDo.</Link>
+                <Link to="/" className="text-[#B33E62] text-2xl md:text-3xl font-semibold">ToDo.</Link>
             </div>
-            <div className="navbar-end hidden lg:flex gap-6">
+            <div className="navbar-end hidden lg:flex mr-6">
                 <ul className="menu menu-horizontal px-1 gap-6 font-semibold">
                     {navLinks}
                 </ul>
-                <div>
-                    <button className="btn text-violet-600 border-violet-600 rounded-3xl bg-transparent border-2 px-10">Login in</button>
-                </div>
+            </div>
+            <div className="pr-4">
+                <button className="btn btn-sm lg:btn-md text-[#B33E62] border-[#B33E62] rounded-3xl bg-transparent border-2 px-6 lg:px-10">Login in</button>
             </div>
         </div>
     );
