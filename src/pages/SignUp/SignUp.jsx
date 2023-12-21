@@ -1,12 +1,42 @@
 import { Link } from "react-router-dom";
 import auth from "../../assets/images/auth/auth.webp"
 import { FcGoogle } from "react-icons/fc";
+import { imageUpload } from "../../api/utils";
+import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const SignUp = () => {
+    const { createUser, userUpdateProfile, googleLogin, loading } = useAuth();
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
+        const form = e.target;
+        const name = form.name.value;
+        const imgFile = form.imgFile.files[0];
+        const email = form.email.value;
+        const password = form.password.value;
+
+        try {
+            const imageData = await imageUpload(imgFile)
+            const res = await createUser(email, password);
+            if (res?.user) {
+                await userUpdateProfile(name, imageData?.data?.display_url)
+                toast.success('user created successfully');
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
     };
+
+    const handleGoogle = async () => {
+        try {
+            await googleLogin();
+            toast.success('user has been logged in successfully');
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
 
     return (
         <div>
@@ -18,7 +48,7 @@ const SignUp = () => {
                     </div>
                     <div className="card w-full bg-base-100">
                         <div className="px-8">
-                            <button className="btn w-full">
+                            <button onClick={handleGoogle} className="btn w-full">
                                 <FcGoogle className="text-lg" />
                                 Continue with Google
                             </button>
@@ -28,28 +58,33 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="text" placeholder="name" className="input input-bordered" required />
+                                <input name="name" type="text" placeholder="name" className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Image</span>
                                 </label>
-                                <input type="file" className="file-input file-input-bordered w-full" />
+                                <input name="imgFile" type="file" className="file-input file-input-bordered w-full" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" placeholder="email" className="input input-bordered" required />
+                                <input name="email" type="email" placeholder="email" className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" placeholder="password" className="input input-bordered" required />
+                                <input name="password" type="password" placeholder="password" className="input input-bordered" required />
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn bg-[#B33E62] text-white">Sign Up with Email</button>
+                                <button className="btn bg-[#B33E62] text-white">
+                                    {
+                                        loading ?
+                                        <TbFidgetSpinner className="animate-spin mx-auto" /> : 'Sign Up with Email'
+                                    }
+                                </button>
                             </div>
                         </form>
                         <div className="px-8 text-sm">

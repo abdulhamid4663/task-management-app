@@ -1,11 +1,39 @@
 import { Link } from "react-router-dom";
 import auth from "../../assets/images/auth/auth.webp"
 import { FcGoogle } from "react-icons/fc";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const Login = () => {
+    const { loginUser, googleLogin, loading } = useAuth();
 
-    const handleSubmit = e => {
+
+    const handleSubmit = async e => {
         e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        try {
+            const res = await loginUser(email, password);
+
+            if (res?.user) {
+                toast.success('user is logged in successfully');
+            }
+
+        } catch (error) {
+            toast.error(error.message);
+        }
+    }
+
+    const handleGoogle = async () => {
+        try {
+            await googleLogin();
+            toast.success('user has been logged in successfully');
+        } catch (error) {
+            toast.error(error.message)
+        }
     }
 
     return (
@@ -18,7 +46,7 @@ const Login = () => {
                     </div>
                     <div className="card w-full bg-base-100">
                         <div className="px-8">
-                            <button className="btn w-full">
+                            <button onClick={handleGoogle} className="btn w-full">
                                 <FcGoogle className="text-lg" />
                                 Continue with Google
                             </button>
@@ -28,19 +56,24 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" placeholder="email" className="input input-bordered" required />
+                                <input name="email" type="email" placeholder="email" className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" placeholder="password" className="input input-bordered" required />
+                                <input name="password" type="password" placeholder="password" className="input input-bordered" required />
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn bg-[#B33E62] text-white">Login</button>
+                                <button className="btn bg-[#B33E62] text-white">
+                                    {
+                                        loading ?
+                                            <TbFidgetSpinner className="animate-spin mx-auto" /> : 'Login'
+                                    }
+                                </button>
                             </div>
                         </form>
                         <div className="px-8 text-sm">
@@ -53,30 +86,6 @@ const Login = () => {
                 </div>
             </div>
         </div>
-        // <div className="flex min-h-screen items-center justify-center">
-        //     <div className="card w-full max-w-screen-sm bg-base-100">
-        //         <form className="card-body">
-        //             <div className="form-control">
-        //                 <label className="label">
-        //                     <span className="label-text">Email</span>
-        //                 </label>
-        //                 <input type="email" placeholder="email" className="input input-bordered" required />
-        //             </div>
-        //             <div className="form-control">
-        //                 <label className="label">
-        //                     <span className="label-text">Password</span>
-        //                 </label>
-        //                 <input type="password" placeholder="password" className="input input-bordered" required />
-        //                 <label className="label">
-        //                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-        //                 </label>
-        //             </div>
-        //             <div className="form-control mt-6">
-        //                 <button className="btn btn-primary">Login</button>
-        //             </div>
-        //         </form>
-        //     </div>
-        // </div>
     );
 };
 
