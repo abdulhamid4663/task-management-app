@@ -4,6 +4,8 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import DashboardLayout from "../layouts/DashboardLayout";
+import Profile from "../pages/Dashboard/Profile/Profile";
+import TaskManagement from "../pages/Dashboard/TaskManagement/TaskManagement";
 
 const router = createBrowserRouter([
     {
@@ -29,12 +31,12 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         children: [
             {
-                path: "taskManagement",
-                element: <div>Task Management</div>
+                index: true,
+                element: <TaskManagement />
             },
             {
                 path: "profile",
-                element: <div>Task Management</div>
+                element: <Profile />
             },
         ]
     }
