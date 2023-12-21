@@ -36,7 +36,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="pr-4">
-                <button className="btn btn-sm lg:btn-md text-[#B33E62] border-[#B33E62] rounded-3xl bg-transparent border-2 px-6 lg:px-10">Login in</button>
+                <button className="btn btn-sm lg:btn-md text-[#B33E62] border-[#B33E62] rounded-3xl bg-transparent border-2 px-6 lg:px-10">Download App</button>
             </div>
         </div>
     );

@@ -10,7 +10,7 @@ const Benefit = () => {
         <div className="max-w-screen-2xl mx-auto px-4 py-32">
             {/* Section Title */}
             <div className="text-center md:text-start">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold">Who Can Benefit?</h1>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold">Who Can Benefit?</h1>
                 <p className="max-w-screen-lg">Our task management platform is designed to cater to the diverse needs of individuals and professionals from various domains. It is a valuable tool for:</p>
             </div>
 
