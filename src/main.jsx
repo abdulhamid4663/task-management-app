@@ -10,6 +10,7 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import Aos from 'aos'
 import 'aos/dist/aos.css';
+import { HelmetProvider } from 'react-helmet-async';
 
 Aos.init({})
 
@@ -19,10 +20,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
       <DndProvider backend={HTML5Backend}>
-        <QueryClientProvider client={queryClient}>
-          <Toaster />
-          <RouterProvider router={router} />
-        </QueryClientProvider>
+        <HelmetProvider>
+          <QueryClientProvider client={queryClient}>
+            <Toaster />
+            <RouterProvider router={router} />
+          </QueryClientProvider>
+        </HelmetProvider>
       </DndProvider>
     </AuthProvider>
   </React.StrictMode>,

@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FaTasks } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Helmet } from "react-helmet-async";
 
 const DashboardLayout = () => {
     const { user, logoutUser } = useAuth();
@@ -14,6 +15,9 @@ const DashboardLayout = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Dashboard || Todo App</title>
+            </Helmet>
             <div className="lg:hidden drawer text-end py-2 px-4 bg-[#FAF8F7]">
                 <input id="my-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">

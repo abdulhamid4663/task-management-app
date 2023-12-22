@@ -45,7 +45,7 @@ const DraggableTask = ({ task, refetch }) => {
     const handleDelete = async () => {
         try {
             const { data } = await axios.delete(`/tasks/${task?._id}`);
-            if(data?.deletedCount > 0) {
+            if (data?.deletedCount > 0) {
                 toast.success('Task is deleted successfully');
                 refetch()
             }
@@ -53,6 +53,25 @@ const DraggableTask = ({ task, refetch }) => {
             toast.error(error.message)
         }
     }
+
+    function toastNotification(taskDeadlineString) {
+        const taskDeadline = new Date(taskDeadlineString);
+        const now = new Date();
+
+        const timeDifference = taskDeadline - now;
+
+        if (timeDifference > 0) {
+            setTimeout(() => {
+                showToast();
+            }, timeDifference);
+        }
+    }
+
+    function showToast() {
+        toast.success(`${task?.name} has reached the deadline time!`)
+    }
+
+    toastNotification('Fri Dec 22 2023 17:05:00 GMT+0600 (Bangladesh Standard Time)');
 
     return (
         <>
