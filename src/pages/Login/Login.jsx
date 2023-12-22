@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../assets/images/auth/auth.webp"
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../hooks/useAuth";
@@ -7,6 +7,7 @@ import { TbFidgetSpinner } from "react-icons/tb";
 
 const Login = () => {
     const { loginUser, googleLogin, loading } = useAuth();
+    const navigate = useNavigate()
 
 
     const handleSubmit = async e => {
@@ -20,6 +21,7 @@ const Login = () => {
 
             if (res?.user) {
                 toast.success('user is logged in successfully');
+                navigate('/dashboard')
             }
 
         } catch (error) {
@@ -31,6 +33,7 @@ const Login = () => {
         try {
             await googleLogin();
             toast.success('user has been logged in successfully');
+            navigate('/dashboard')
         } catch (error) {
             toast.error(error.message)
         }

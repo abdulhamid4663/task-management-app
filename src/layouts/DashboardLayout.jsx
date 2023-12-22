@@ -1,10 +1,16 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FaTasks } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const DashboardLayout = () => {
-    const { user } = useAuth();
+    const { user, logoutUser } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logoutUser()
+        navigate('/')
+    }
 
     return (
         <>
@@ -19,8 +25,8 @@ const DashboardLayout = () => {
                     <div className="menu p-4 w-80 min-h-full bg-[#FAF8F7] text-base-content">
                         <div className="dropdown dropdown-bottom mb-4">
                             <div tabIndex={0} role="button" className="flex gap-3 items-center m-1">
-                                <div className="w-8 rounded-full">
-                                    <img alt={`${user?.displayName}'s Image`} src={user?.photoURL} className="rounded-full" />
+                                <div className="w-8 h-8 rounded-full">
+                                    <img alt={`${user?.displayName}'s Image`} src={user?.photoURL} className="rounded-full w-full h-full" />
                                 </div>
                                 <div>
                                     <h1>{user?.displayName.split(' ')[0]}</h1>
@@ -28,7 +34,7 @@ const DashboardLayout = () => {
                             </div>
                             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                 <li><Link to='/dashboard/profile'>Profile</Link></li>
-                                <li><a className="text-red-600">Logout</a></li>
+                                <li><a onClick={handleLogout} className="text-red-600">Logout</a></li>
                             </ul>
                         </div>
                         <NavLink to='/dashboard'
@@ -50,8 +56,8 @@ const DashboardLayout = () => {
                         <div>
                             <div className="dropdown dropdown-bottom mb-4">
                                 <div tabIndex={0} role="button" className="btn m-1">
-                                    <div className="w-8 rounded-full">
-                                        <img alt={`${user?.displayName}'s Image`} src={user?.photoURL} className="rounded-full" />
+                                    <div className="w-8 h-8 rounded-full">
+                                        <img alt={`${user?.displayName}'s Image`} src={user?.photoURL} className="rounded-full w-full h-full" />
                                     </div>
                                     <div>
                                         <h1>{user?.displayName.split(' ')[0]}</h1>
@@ -60,7 +66,7 @@ const DashboardLayout = () => {
                                 <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
 
                                     <li><Link to='/dashboard/profile'>Profile</Link></li>
-                                    <li><a className="text-red-600">Logout</a></li>
+                                    <li><a onClick={handleLogout} className="text-red-600">Logout</a></li>
                                 </ul>
                             </div>
                             <NavLink to='/dashboard'
