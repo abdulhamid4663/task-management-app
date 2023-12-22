@@ -8,7 +8,10 @@ import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import Aos from 'aos'
+import 'aos/dist/aos.css';
 
+Aos.init({})
 
 const queryClient = new QueryClient()
 
